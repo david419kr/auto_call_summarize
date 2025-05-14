@@ -6,21 +6,25 @@ const path = require('path');
 const axios = require('axios');
 
 const app = express();
-const port = 3001;
 
 // ------------------------------------------------------------------------------------------
 //                                     user settings
 // ------------------------------------------------------------------------------------------
 
+// PORT Setting
+const PORT = 3000;
 
 // OPENAI API Setting
 const OPENAI_API_URL = 'https://api.openai.com/v1/'; // set API BASE URL
 const OPENAI_API_KEY = 'sk-';
 const model = 'gpt-4o-mini'; // set model
 
+// HUGGINGFACE Setting
+const HUGGINGFACE_TOKEN = '';
+
 // WhisperX Setting
 // supported language codes can be found here at line 39~. https://github.com/m-bain/whisperX/blob/main/whisperx/alignment.py
-const language = 'ko' // set language code
+const LANGUAGE = 'ko' // set language code
 
 
 // ------------------------------------------------------------------------------------------
@@ -101,7 +105,7 @@ app.post('/transcribe', upload.single('file'), (req, res) => {
   const outputPath = path.join(uploadDir, outputFile);
 
   // WhisperX 명령 실행
-  const command = `cd ${uploadDir} && whisperx "${fileNameExt}" --model large-v3-turbo --diarize --language ${language}`;
+  const command = `cd ${uploadDir} && whisperx "${fileNameExt}" --model large-v3-turbo --diarize --language ${LANGUAGE} --hf_token ${HUGGINGFACE_TOKEN}`;
   
   console.log(`execute command: ${command}`);
   
@@ -163,6 +167,6 @@ app.post('/transcribe', upload.single('file'), (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`server running at http://localhost:${PORT}`);
 });
