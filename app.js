@@ -24,7 +24,7 @@ const HUGGINGFACE_TOKEN = '';
 
 // WhisperX Setting
 // supported language codes can be found here at line 39~. https://github.com/m-bain/whisperX/blob/main/whisperx/alignment.py
-const LANGUAGE = 'ko' // set language code
+const LANGUAGE = null // set language code if needed
 
 
 // ------------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ app.post('/transcribe', upload.single('file'), (req, res) => {
   const outputPath = path.join(uploadDir, outputFile);
 
   // WhisperX 명령 실행
-  const command = `cd ${uploadDir} && whisperx "${fileNameExt}" --model large-v3-turbo --diarize --language ${LANGUAGE} --hf_token ${HUGGINGFACE_TOKEN}`;
+  const command = `cd ${uploadDir} && whisperx "${fileNameExt}" --model large-v3-turbo --diarize ${LANGUAGE ? "--language " + LANGUAGE : " "} --hf_token ${HUGGINGFACE_TOKEN}`;
   
   console.log(`execute command: ${command}`);
   
