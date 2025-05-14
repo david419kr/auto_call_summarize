@@ -14,7 +14,7 @@ A Node.js API server that transcribes audio files using WhisperX and generates c
 - Node.js 14+
 - [WhisperX](https://github.com/m-bain/whisperX) installed and accessible from command line
 - Hugging Face token for WhisperX
-- Grok API access
+- Openai API(or compatible LLM API) access
 
 ## Installation
 
